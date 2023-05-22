@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间，xml文件和dao借口对接起来 -->
+<mapper namespace="com.test.rocketmq.dao.UserDao">
+    <!-- 查询列表 -->
+    <sql id="sqlWhere">
+        <where>
+            <if test="username!=null and username!=''">
+                and username = #{username}<!-- 这种写法主动把第一个and去掉 -->
+            </if>
+            <if test="password!=null and password!=''">
+                and password = #{password}
+            </if>
+        </where>
+    </sql>
+    <!-- 查询列表 -->
+    <select id="login" parameterType="com.test.rocketmq.model.User" resultType="com.test.rocketmq.model.User">
+        select username,password from user
+        <include refid="sqlWhere"></include>
+    </select>
+
+    <!-- id不需要，自增 -->
+    <insert id="register" parameterType="com.test.rocketmq.model.User">
+        insert into user(username,password,email)
+        values(#{username},#{password},#{email})
+    </insert>
+
+
+</mapper>
+

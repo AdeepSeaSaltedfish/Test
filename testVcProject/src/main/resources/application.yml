@@ -1,0 +1,53 @@
+#server:
+#  port: 8080
+#  servlet:
+#    context-path: /
+  #默认的servlet，静态资源
+    # register-default-servlet: true
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test_email?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 12345678
+    # type: com.alibaba.druid.pool.DruidDataSource
+  # 发送邮件配置
+  mail:
+    host: smtp.qq.com # 配置 smtp 服务器地址
+    port: 587 # smtp 服务器的端口
+    username: 1821299467@qq.com # 配置邮箱用户名(你的邮箱地址)
+    password: vntnhoeqkrtedief # 配置申请到的授权码(刚让复制的授权码)
+    default-encoding: UTF-8 # 配置邮件编码
+    properties:
+      mail:
+        smtp:
+          socket-factory-class: javax.net.ssl.SSLSocketFactory # 配饰 SSL 加密工厂
+        debug: true
+    from: 1821299467@qq.com # 发送方邮件，配在yml中可方便更改
+  # 静态资源映射
+  resources:
+    static-locations: classpath:/webapp/static/
+  mvc:
+    static-path-pattern: /static/**
+
+mybatis:
+  mapper-locations:
+    classpath: com.test.rocketmq.dao/*.xml   #指明xml文件路径
+  type-aliases-package: com.test.rocketmq.model
+  configuration:
+    map-underscore-to-camel-case: true
+
+# rocketmq
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: my-producer-group
+
+#es使用
+#elasticsearch:
+#  host: 127.0.0.1
+#  port: 9201
+#  connTimeout: 3000
+#  socketTimeout: 5000
+#  connectionRequestTimeout: 500
+
